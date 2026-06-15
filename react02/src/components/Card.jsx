@@ -1,26 +1,28 @@
 import React from 'react'
 
-function Card() {
+function Card(props) {
+    console.log(props);
     return (
+        
         <div className='card-Container'>
             <div className='snack-Img'>
-                <img src="https://imgs.search.brave.com/tIh6LKn39DWqqVXbu_q3T2b5JCEiQ_ALflftUm8NKTc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE1/OTgzNzMxODIzMDgt/MzI3MDQ5NWQyZjU4/P2ZtPWpwZyZxPTYw/Jnc9MzAwMCZhdXRv/PWZvcm1hdCZmaXQ9/Y3JvcCZpeGxpYj1y/Yi00LjEuMCZpeGlk/PU0zd3hNakEzZkRC/OE1IeHpaV0Z5WTJo/OE1ueDhiRzloWmlV/eU1HOW1KVEl3WW5K/bFlXUjhaVzU4TUh4/OE1IeDhmREE9"></img>
+                <img src={props.img}></img>
             </div>
             <div className='card-Info'>
                 <div className='snack-Heading'>
-                    Whole Weat Loaf
+                    {props.name}
                 </div>
                 <div className='snack-Description'>
-                    Nutritious, fibre-rich and wholesome loaves.
+                    {props.desc}
                 </div>
                 <div className='snack-Price'>
-                    $4.50
+                    ${props.price}
                 </div>
             </div>
             <div className='left-Section'>
                 <div className='stock-Value'>
                     <div className='stock'>
-                    In-Stock: 40
+                    In Stock: {props.stock}
                     </div>
                 </div>
                 <div className='trash-Bin'>

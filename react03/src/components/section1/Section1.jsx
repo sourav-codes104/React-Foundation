@@ -1,0 +1,13 @@
+import React from 'react'
+import Navbar from './Navbar'
+import Content from './Content'
+const Section1 = () => {
+  return (
+    <div className='bg-white'>
+      <Navbar/>
+      <Content/>
+    </div>
+  )
+}
+
+export default Section1

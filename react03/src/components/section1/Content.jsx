@@ -27,7 +27,7 @@ const Content = ({ customerSegments }) => {
         {customerSegments.map((item) => (
           <div
             key={item.id}
-            className="relative w-80 min-w-80 h-full rounded-[32px] overflow-hidden shrink-0"
+            className="relative w-80 min-w-80 h-full rounded-4xl overflow-hidden shrink-0"
           >
             <img
               src={item.image}

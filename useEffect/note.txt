@@ -1,0 +1,159 @@
+useEffect Hook Notes
+====================
+
+1. What is useEffect?
+
+useEffect is a React Hook used to run side-effect code in a component.
+
+A side effect is work that happens outside the normal process of displaying
+UI. Examples include:
+
+- Calling an API
+- Updating the document title
+- Starting a timer
+- Adding an event listener
+- Reading or writing browser storage
+- Connecting to a service
+
+Import it from React:
+
+import { useEffect } from "react";
+
+Important: useEffect can be used only inside a React function component or
+inside a custom Hook. Hooks should be called at the top level, not inside
+loops, conditions, or nested functions.
+
+
+2. Basic syntax
+
+useEffect(() => {
+  // Code to run after the component renders
+
+  return () => {
+    // Optional cleanup code
+  };
+}, [dependencies]);
+
+The second argument is called the dependency array.
+
+
+3. How it works
+
+React renders the component first. After the screen is updated, React runs
+the effect.
+
+When a dependency changes, React runs the cleanup from the previous effect
+first, then runs the effect again.
+
+When the component is removed from the screen, React runs the final cleanup.
+
+
+4. Dependency array examples
+
+Run after every render:
+
+useEffect(() => {
+  console.log("The component rendered");
+});
+
+This is usually avoided unless there is a specific reason.
+
+
+Run only once after the first render:
+
+useEffect(() => {
+  console.log("The component loaded");
+}, []);
+
+An empty array means the effect does not depend on changing values.
+
+
+Run when a value changes:
+
+useEffect(() => {
+  document.title = `Length: ${text.length}`;
+}, [text]);
+
+This effect runs after the first render and whenever text changes.
+
+
+5. Cleanup functions
+
+Some effects create work that must be stopped or removed. Return a cleanup
+function for that work:
+
+useEffect(() => {
+  const timerId = setInterval(() => {
+    console.log("Running");
+  }, 1000);
+
+  return () => {
+    clearInterval(timerId);
+  };
+}, []);
+
+Other cleanup examples include removing event listeners, disconnecting a
+ WebSocket, and cancelling subscriptions.
+
+
+6. Example: fetching data
+
+useEffect(() => {
+  let isActive = true;
+
+  fetch("https://example.com/api/items")
+    .then((response) => response.json())
+    .then((data) => {
+      if (isActive) {
+        setItems(data);
+      }
+    });
+
+  return () => {
+    isActive = false;
+  };
+}, []);
+
+In real applications, handle loading and error states too. For more complex
+requests, use an established data-fetching library or AbortController.
+
+
+7. Important rules
+
+- Do not call Hooks conditionally or inside loops.
+- Include values used by the effect in the dependency array.
+- Do not put an effect in the dependency array itself.
+- Avoid updating state inside an effect unless the update is needed.
+- Do not use useEffect for values that can be calculated during rendering.
+- Keep each effect focused on one related job.
+- Always clean up timers, listeners, subscriptions, and connections.
+- Effects run on the client, not during server rendering.
+- In development Strict Mode, React may run an effect and cleanup twice to
+  help find unsafe side effects. This is expected.
+
+
+8. useEffect versus normal calculations
+
+If a value can be calculated from existing props or state, calculate it
+inside the component instead of using an effect.
+
+Good:
+
+const length = text.length;
+
+Unnecessary:
+
+useEffect(() => {
+  setLength(text.length);
+}, [text]);
+
+The second version works, but it adds an extra render. Use an effect when
+React needs to synchronize with something outside React.
+
+
+9. Simple way to remember it
+
+useEffect means:
+
+"After React updates the screen, synchronize something with the outside
+world, and clean it up when it is no longer needed."

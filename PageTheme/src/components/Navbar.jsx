@@ -1,22 +1,16 @@
-import React, { use } from "react";
-import { useContext } from "react";
-import ThemeContext from "../context/Theme.context";
+import React from 'react'
+import ThemeContext from '../Theme.context'
+import { useContext } from 'react'
 const Navbar = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
-
+  const {theme,setTheme} = useContext(ThemeContext);
   return (
-    <div className="flex justify-between bg-gray-200 items-center">
-      <h1 className="px-3 py-3">Home</h1>
-      <button
-        onClick={() => {
-          setTheme(theme == "light" ? "dark" : "light");
-        }}
-        className=" my-3 mx-3 p-3 rounded-lg w-20 bg-blue-500"
-      >
-        {theme == "light" ? "Dark" : "Light"}
-      </button>
+    <div className='flex justify-between bg-gray-200'>
+      <h1 className=' mx-3 my-3 px-3 py-2 bg-blue-300 rounded-lg '>Home</h1>
+      <button onClick={()=>{
+        setTheme(theme==="Light"?"Dark" :"Light")
+      }} className='mx-3 my-3  px-3 py-2 bg-pink-400 rounded-lg'>{theme=="Light"?"Dark":"Light"}</button>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
